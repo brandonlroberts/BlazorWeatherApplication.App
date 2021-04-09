@@ -12,7 +12,7 @@ namespace BlazorWeatherApplication.App.Pages
         private CurrentWeather currentWeather = new CurrentWeather();       
 
         [Inject]
-        public IWeatherServices weatherServices { get; set; }
+        private IWeatherServices weatherServices { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
