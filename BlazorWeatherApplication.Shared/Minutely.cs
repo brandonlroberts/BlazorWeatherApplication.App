@@ -7,7 +7,8 @@ namespace BlazorWeatherApplication.Shared
         [JsonProperty("dt")]
         public long Dt { get; set; }
 
-        [JsonProperty("precipitation")]
-        public long Precipitation { get; set; }
+        //This changed during the day Friday causing the page to break.
+        //[JsonProperty("precipitation")]
+        //public long Precipitation { get; set; }
     }
 }
