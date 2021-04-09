@@ -1,0 +1,73 @@
+﻿@page "/"
+@inject IToastService toastService
+
+<h1>Weather forecast</h1>
+
+<p><em>This component demonstrates fetching the weather forecast data from a server.</em></p>
+<br />
+
+<EditForm Model="@currentWeather" OnValidSubmit="OnButtonSubmitAsync">
+    <DataAnnotationsValidator />
+    <div class="col-12 row">
+        <div class="col-xs-12 col-sm-8">
+            <label for="Name">Zip Code</label>
+            <InputNumber id="zipcode" @bind-Value="currentWeather.ZipCode" />
+            <button type="submit">Submit</button>
+        </div>
+        <div class="col-xs-12 col-sm-8">
+            <ValidationMessage For="@(() => currentWeather.ZipCode)" />
+        </div>
+    </div>
+</EditForm>
+
+<br />
+
+@if (forecast == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <section class="weather-detail">
+        <div class="col-12 row">
+            <div class="col-xs-12 col-sm-8">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Overhead</label>
+                    <div class="col-sm-8">
+                        <label type="text" class="form-control-plaintext">@forecast.Name</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Description</label>
+                    <div class="col-sm-8">
+                        <label type="text" class="form-control-plaintext">@forecast.Weather[0].Description</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Temperature C</label>
+                    <div class="col-sm-8">
+                        <label type="text" class="form-control-plaintext">@Convert.ToInt32(forecast.Main.TempF)°</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Humidity</label>
+                    <div class="col-sm-8">
+                        <label type="text" class="form-control-plaintext">@forecast.Main.Humidity</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Visibility</label>
+                    <div class="col-sm-8">
+                        <label type="text" class="form-control-plaintext">@forecast.Visibility</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Wind Speed</label>
+                    <div class="col-sm-8">
+                        <label type="text" class="form-control-plaintext">@forecast.Wind.Speed</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

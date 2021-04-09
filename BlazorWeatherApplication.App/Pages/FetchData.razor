@@ -1,0 +1,11 @@
+@page "/fetchdata"
+
+<h1>High Temperature Trends</h1>
+
+<p><em>This component demonstrates fetching the high temperature trend data from a server.</em></p>
+<br />
+
+<Button Clicked="@(async () => await HandleRedraw())">Redraw</Button>
+
+<LineChart @ref="lineChart" TItem="double" />
+
