@@ -18,8 +18,10 @@ namespace BlazorWeatherApplication.App.Pages
         {
             try
             {
+                AppStateService.OnChange += StateHasChanged;
                 currentWeather.ZipCode = 45013;
                 forecast = await weatherServices.GetWeatherForcastByEnteredZip(currentWeather.ZipCode);
+                await AppStateService.Set(new AppState { Lat = forecast.Coord.Lat, Lon = forecast.Coord.Lon });
             }
             catch (Exception)
             {
@@ -32,11 +34,17 @@ namespace BlazorWeatherApplication.App.Pages
             try
             {
                 forecast = await weatherServices.GetWeatherForcastByEnteredZip(currentWeather.ZipCode);
+                await AppStateService.Set(new AppState { Lat = forecast.Coord.Lat, Lon = forecast.Coord.Lon });
             }
             catch (Exception)
             {
                 toastService.ShowError("Zipcode could not be found. Please try again.");
             }
+        }
+
+        public void Dispose()
+        {
+            AppStateService.OnChange -= StateHasChanged;
         }
     }
 }

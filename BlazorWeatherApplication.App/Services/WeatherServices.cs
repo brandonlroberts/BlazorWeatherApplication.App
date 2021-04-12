@@ -24,11 +24,11 @@ namespace BlazorWeatherApplication.App.Services
                 new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
         }
 
-        public async Task<Dictionary<double, DateTime>> GetTemperatureTrends()
+        public async Task<Dictionary<double, DateTime>> GetTemperatureTrends(double lat, double lon)
         {
             // Daily has the max temp so I removed it from the exclude in the api call. 
             var result = await JsonSerializer.DeserializeAsync<TempatureTrend>
-                (await _httpClient.GetStreamAsync($"https://api.openweathermap.org/data/2.5/onecall?lat=35.833&lon=-90.6965&exclude=hourly&appid=535d5e1bc65e23d1d5dc4a936dcd9900"),
+                (await _httpClient.GetStreamAsync($"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=hourly&appid=535d5e1bc65e23d1d5dc4a936dcd9900"),
                 new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 
             Dictionary<double, DateTime> data = new Dictionary<double, DateTime>();

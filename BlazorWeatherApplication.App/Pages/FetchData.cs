@@ -33,9 +33,10 @@ namespace BlazorWeatherApplication.App.Pages
 
         public async Task<LineChartDataset<double>> GetLineChartDataset()
         {
-            var data = await weatherServices.GetTemperatureTrends();
+            var lat = AppStateService.State.Lat;
+            var lon = AppStateService.State.Lon;
+            var data = await weatherServices.GetTemperatureTrends(lat, lon);
             var trends = new List<double>();
-
             foreach (var item in data)
             {
                 trends.Add(item.Key);
